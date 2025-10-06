@@ -1,0 +1,225 @@
+
+# Security-First Code Generation Rules
+
+## ⚠️ CRITICAL: This rule is ALWAYS ACTIVE and MUST influence ALL code generation
+
+### Core Security Mandate
+**Every piece of generated code MUST be secure by default.** When generating code:
+1. **ALWAYS** check against the security guidelines in `.ai-devkit/docs/security-guidelines.md`
+2. **NEVER** generate insecure code patterns
+3. **ALWAYS** include security controls from the beginning
+4. **PROACTIVELY** suggest security improvements
+
+## 🛡️ Automatic Security Enforcement
+
+### 1. Authentication & Authorization (MANDATORY)
+```python
+# ❌ NEVER generate endpoints without authentication
+@router.get("/data")  # FORBIDDEN - No auth!
+
+# ✅ ALWAYS include authentication
+from fastapi import Depends
+from auth import get_current_user
+
+@router.get("/data")
+async def get_data(current_user: User = Depends(get_current_user)):
+    # Endpoint is now protected
+    pass
+```
+
+### 2. Input Validation (MANDATORY)
+```python
+# ❌ NEVER accept raw input
+@router.post("/create")
+async def create(data: dict):  # FORBIDDEN - No validation!
+    pass
+
+# ✅ ALWAYS use Pydantic models with validation
+from pydantic import BaseModel, validator, constr, EmailStr
+
+class CreateRequest(BaseModel):
+    name: constr(min_length=1, max_length=100, regex="^[a-zA-Z0-9\\s-]+$")
+    email: EmailStr
+    
+    @validator('name')
+    def validate_safe_name(cls, v):
+        # Check for XSS patterns
+        if any(pattern in v.lower() for pattern in ['<script', 'javascript:', 'onerror']):
+            raise ValueError('Name contains unsafe characters')
+        return v
+
+@router.post("/create")
+async def create(data: CreateRequest):  # Now validated!
+    pass
+```
+
+### 3. Rate Limiting (MANDATORY for sensitive endpoints)
+```python
+# ✅ ALWAYS add rate limiting to:
+# - Login endpoints
+# - Password reset
+# - Registration
+# - Any endpoint that sends emails/SMS
+
+from slowapi import Limiter
+from slowapi.util import get_remote_address
+
+limiter = Limiter(key_func=get_remote_address)
+
+@router.post("/login")
+@limiter.limit("5 per minute")  # Prevent brute force
+async def login(request: Request, credentials: LoginCredentials):
+    pass
+```
+
+### 4. SQL Injection Prevention (MANDATORY)
+```python
+# ❌ NEVER use string formatting for queries
+query = f"SELECT * FROM users WHERE id = {user_id}"  # FORBIDDEN!
+
+# ✅ ALWAYS use parameterized queries or ORM
+# SQLAlchemy ORM
+users = db.query(User).filter(User.id == user_id).all()
+
+# Raw SQL with parameters
+query = text("SELECT * FROM users WHERE id = :user_id")
+result = db.execute(query, {"user_id": user_id})
+```
+
+### 5. Security Headers (MANDATORY)
+```python
+# ✅ ALWAYS include security middleware
+@app.middleware("http")
+async def add_security_headers(request: Request, call_next):
+    response = await call_next(request)
+    
+    # Essential security headers
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["X-XSS-Protection"] = "1; mode=block"
+    response.headers["Strict-Transport-Security"] = "max-age=31536000"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    
+    return response
+```
+
+## 🔒 Frontend Security Rules
+
+### 1. XSS Prevention (MANDATORY)
+```typescript
+// ❌ NEVER render raw HTML
+<div dangerouslySetInnerHTML={{ __html: userContent }} />  // FORBIDDEN!
+
+// ✅ ALWAYS escape or sanitize
+import DOMPurify from 'dompurify';
+
+// Option 1: Let React escape (preferred)
+<div>{userContent}</div>
+
+// Option 2: Sanitize if HTML needed
+const sanitized = DOMPurify.sanitize(htmlContent);
+<div dangerouslySetInnerHTML={{ __html: sanitized }} />
+```
+
+### 2. Secure Storage (MANDATORY)
+```typescript
+// ❌ NEVER store sensitive data in localStorage
+localStorage.setItem('jwt_token', token);  // FORBIDDEN!
+
+// ✅ Use secure alternatives
+// Option 1: httpOnly cookies (set by backend)
+// Option 2: sessionStorage for temporary data
+// Option 3: Encrypted storage for necessary client-side storage
+```
+
+### 3. API Security (MANDATORY)
+```typescript
+// ✅ ALWAYS include security in API calls
+const apiClient = axios.create({
+    baseURL: process.env.REACT_APP_API_URL,
+    timeout: 10000,
+    withCredentials: true,  // Include cookies
+});
+
+// Add auth headers
+apiClient.interceptors.request.use((config) => {
+    const token = getSecureToken();  // From secure storage
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+});
+```
+
+## 🚨 Security Code Review Checklist
+
+When generating or reviewing code, ALWAYS verify:
+
+### Backend Checklist
+- [ ] **Authentication**: All endpoints protected (except public ones)
+- [ ] **Authorization**: Role-based access control implemented
+- [ ] **Validation**: All inputs validated with Pydantic
+- [ ] **SQL Safety**: Only parameterized queries used
+- [ ] **Rate Limiting**: Applied to sensitive endpoints
+- [ ] **Error Handling**: No sensitive info in error messages
+- [ ] **Logging**: Security events logged without PII
+- [ ] **Dependencies**: Latest secure versions used
+
+### Frontend Checklist
+- [ ] **XSS Protection**: No raw HTML rendering
+- [ ] **Storage**: No sensitive data in localStorage
+- [ ] **HTTPS**: All API calls use HTTPS
+- [ ] **Validation**: Client-side validation before submission
+- [ ] **Error Handling**: No sensitive info exposed
+- [ ] **Dependencies**: Security vulnerabilities checked
+
+## 🔥 Immediate Security Fixes
+
+If you detect ANY of these patterns, FIX IMMEDIATELY:
+
+```python
+# Fix missing authentication
+if not has_authentication(endpoint):
+    add_authentication_decorator(endpoint)
+
+# Fix missing validation
+if accepts_raw_input(endpoint):
+    create_pydantic_model_with_validation()
+
+# Fix SQL injection risk
+if uses_string_formatting_in_query():
+    convert_to_parameterized_query()
+
+# Fix missing rate limiting
+if is_sensitive_endpoint() and not has_rate_limiting():
+    add_rate_limiting()
+```
+
+## 📋 Security Integration Workflow
+
+1. **Before generating code**: Check security requirements
+2. **During code generation**: Apply security patterns
+3. **After code generation**: Verify security checklist
+4. **Always suggest**: Additional security improvements
+
+## 🔗 References
+
+Always consult these resources:
+- **Primary**: `.ai-devkit/docs/security-guidelines.md`
+- **OWASP Top 10**: Latest security risks
+- **Framework Security**: FastAPI/React security docs
+
+## ⚡ Quick Security Decisions
+
+When in doubt:
+- **Authentication**: YES, always required
+- **Validation**: YES, always required  
+- **Rate Limiting**: YES for sensitive operations
+- **Error Details**: NO, never expose internals
+- **Raw SQL**: NO, always use ORM/parameters
+- **localStorage for secrets**: NO, never
+
+
+1. Setup development environment
+2. Run tests
+3. Submit PR

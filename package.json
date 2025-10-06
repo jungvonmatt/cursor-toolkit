@@ -1,0 +1,28 @@
+{
+  "name": "ai-devkit",
+  "version": "1.0.0",
+  "description": "AI Development Kit - A comprehensive toolkit for AI-powered development workflows",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky"
+  },
+  "keywords": [
+    "ai",
+    "development",
+    "devkit",
+    "cursor",
+    "automation"
+  ],
+  "packageManager": "pnpm@10.12.1",
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
+    "prettier": "^3.6.2"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,css,scss,md,yaml,yml}": "prettier --write"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "mcpServers": {
+    "Time": {
+      "command": "uvx",
+      "args": ["mcp-server-time", "--local-timezone", "Europe/Berlin"]
+    },
+    "GitHub": {
+      "command": "docker run -i --rm -e GITHUB_PERSONAL_ACCESS_TOKEN ghcr.io/github/github-mcp-server",
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": ""
+      }
+    },
+    "git": {
+      "command": "uvx",
+      "args": ["mcp-server-git"]
+    },
+    "eslint": {
+      "command": "npx",
+      "args": ["@eslint/mcp@latest"],
+      "env": {}
+    },
+    "Sequential Thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+    },
+    "BrowserTools": {
+      "command": "npx",
+      "args": ["@agentdeskai/browser-tools-mcp@latest"]
+    },
+    "Docker": {
+      "command": "npx",
+      "args": ["-y", "@smithery/cli@latest", "run", "docker-mcp", "--config", "{}"]
+    },
+    "context7": {
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "Figma": {
+      "url": "http://127.0.0.1:3845/mcp"
+    }
+  }
+}

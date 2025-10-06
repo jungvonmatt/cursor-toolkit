@@ -1,0 +1,76 @@
+---
+description: Development workflow standards including incremental development, Python Poetry usage, and server management
+globs:
+alwaysApply: true
+---
+# Development Workflow Standards
+
+## Core Workflow Principles
+- Work incrementally with small, focused changes
+- Validate assumptions early and often
+- Document decisions and rationale
+- Test thoroughly after every meaningful change
+- Build for maintainability first, performance second
+
+## Development Process
+### Planning Phase
+- Understand requirements completely before coding
+- Break down complex tasks into smaller steps
+- Identify potential technical challenges early
+- Create clear acceptance criteria
+- Document assumptions and constraints
+
+### Implementation Phase
+- Implement features in the simplest possible way
+- Focus on core functionality before optimization
+- Make focused, single-purpose changes
+- Search existing codebase before writing new code
+- Follow consistent naming conventions
+
+### Review Phase
+- Verify all requirements are met
+- Run automated tests and linters
+- Complete code review checklist
+- Validate error handling
+- Update relevant documentation
+
+## Python Project Standards
+### ⚠️ CRITICAL: Poetry-only Workflow
+- **ALWAYS use Poetry for Python projects, never pip**
+- **NEVER use requirements.txt or pip directly**
+- Initialize new projects with `poetry init`
+- Add dependencies via `poetry add`
+- Update dependencies through `poetry update`
+- Use `poetry install` for environment setup
+- Run scripts through `poetry run`
+- Maintain clean dependency tree with `poetry show`
+- Manage all virtual environments through Poetry
+
+### Dependency Management
+- Always use latest stable versions of packages
+- Check PyPI before every package installation
+- Document version constraints with explicit reasons
+- Review release notes for breaking changes
+- Test in isolated environment before updating
+
+## ⚠️ CRITICAL: Server Management
+- **NEVER start servers automatically without explicit user request**
+- **ONLY start, stop, or restart servers when explicitly instructed**
+- **ASSUME pre-configured services are already running**:
+  - All services in the "Launch All Services" configuration in [.vscode/launch.json](mdc:.vscode/launch.json) should be assumed to be running
+  - Reference [local-development-ports.md](mdc:docs/development/local-development-ports.md) for port configurations and service details
+- Let VS Code Debug/Run handle server management
+- When starting servers, always use reload mode by default
+- Respect existing running instances
+- Configure appropriate logging levels for development
+- Always confirm server operations with the user:
+  - "Would you like me to start the server now?"
+  - "Should I restart the server with these changes?"
+  - "Do you want me to stop the running server?"
+
+## Version Control
+- Write meaningful, descriptive commit messages
+- Make small, focused commits
+- Keep documentation in sync with code changes
+- Follow consistent branch naming conventions
+- Use feature branches for all changes

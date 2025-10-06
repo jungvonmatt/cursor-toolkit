@@ -1,0 +1,465 @@
+---
+description: Rules for creating well-structured Epics as GitHub issues, combining business and technical perspectives
+globs:
+alwaysApply: false
+---
+# Epic Creation & Management Rules
+
+## Core Epic Principles
+- Epics represent large features that span multiple stories
+- Epics provide a clear business goal and measurable outcomes
+- Epics maintain parent-child relationships with stories
+- Epics have a defined scope and timeline
+- Epics follow standardized naming and labeling conventions
+- **⚠️ CRITICAL: GitHub CLI Only**: ALL GitHub interactions MUST use GitHub CLI (gh)
+
+## Epic Structure
+
+### Business Vision (Product Manager View)
+- Clear description of the epic's purpose and value
+- Target audience and impact
+- Success metrics and KPIs
+- Timeline and milestones
+- Dependencies and constraints
+
+### Technical Scope (Engineering Manager View)
+- Architecture impact overview
+- System boundaries and interfaces
+- Technical risk assessment
+- Cross-repository considerations
+- Resource requirements
+
+### Story Management
+- List of contained stories (as task list in the epic)
+- Progress tracking mechanism
+- Definition of Done for the epic
+- Acceptance criteria at epic level
+
+## 📝 Output Format
+
+The epic should be formatted in Markdown with proper structure:
+
+```markdown
+# Epic: [Epic Title]
+
+## Business Vision
+
+### Purpose
+[Clear description of why this epic exists]
+
+### Target Outcome
+- [Primary goal]
+- [Secondary goals]
+- [Measurable success criteria]
+
+### Timeline
+- Expected start: [Date]
+- Expected completion: [Date]
+- Key milestones:
+  - [Milestone 1]: [Date]
+  - [Milestone 2]: [Date]
+
+## Technical Scope
+
+### Architecture Impact
+- [System components affected]
+- [Integration points]
+- [Technical foundations needed]
+
+### Risk Assessment
+- [Major risks]
+- [Mitigation strategies]
+
+### Resource Requirements
+- [Team composition needed]
+- [Special skills required]
+- [Infrastructure needs]
+
+## Stories
+
+*The following stories will be implemented as part of this epic:*
+
+- [ ] [Story 1]
+- [ ] [Story 2]
+- [ ] [Story 3]
+
+## Progress Tracking
+
+| Status | Date | Update |
+|--------|------|--------|
+| Planning | YYYY-MM-DD | Epic created |
+```
+
+## 🔍 Mandatory Process Steps
+
+1. **REQUIRED**: Thoroughly research codebase and documentation before planning an Epic
+2. **REQUIRED**: Ask comprehensive clarifying questions until 95% confidence is reached
+3. **REQUIRED**: Only create temporary epic file after reaching 95% confidence
+4. Analyze technical implications with knowledge from architecture docs
+5. Structure the epic following the template
+6. Apply proper formatting and indentation
+7. Ask for user feedback during drafting process
+8. Create/update the epic file in `.temp/epics/`
+9. Review and validate markdown rendering
+10. **REQUIRED**: Request explicit approval for the finalized epic
+11. **REQUIRED**: Explicitly confirm target repository with the user
+12. **REQUIRED**: Verify the epic file is properly saved and formatted
+13. **REQUIRED**: Only create GitHub issue after explicit user approval
+14. **REQUIRED**: Create documentation page in docs repository
+15. Add issue to Sales1 Board project
+16. Clean up temporary files if no longer needed
+
+## 🔄 Epic Creation Process
+
+### 1. Research Phase
+- **REQUIRED**: Study existing architecture and documentation
+- **REQUIRED**: Ask clarifying questions until reaching 95% confidence
+- Identify business need and alignment with product roadmap
+- Consult stakeholders for requirements and constraints
+- Research similar implementation approaches
+- Identify dependencies and prerequisites
+- Refuse to proceed until sufficient understanding is reached
+
+### 2. Epic Draft Creation
+- **REQUIRED**: Create a temporary file in `.temp/epics/`
+- Draft epic description following the template
+- Break down into potential stories (high-level)
+- Identify technical challenges and architecture impact
+- Estimate rough timeline and resource needs
+- **REQUIRED**: Share draft with user for initial feedback
+
+### 3. Technical Validation
+- Review with technical stakeholders
+- Validate architecture approach
+- Identify cross-repository implications
+- Assess feasibility and resource requirements
+- Document technical risks and mitigation strategies
+- **REQUIRED**: Update draft based on validation feedback
+
+### 4. Epic Refinement
+- Update draft based on technical validation
+- Define clear success metrics
+- Establish timeline and milestones
+- Finalize list of potential stories
+- Set acceptance criteria for the epic
+- **REQUIRED**: Request final review from user
+
+### 5. Epic Creation
+- **REQUIRED**: Obtain explicit user approval before proceeding
+- **REQUIRED**: Explicitly confirm target repository with the user
+- **REQUIRED**: Create documentation page in `docs/project-management/epics/[epic-name].md`
+- Create GitHub issue with epic format
+- Apply "epic" label
+- Link to documentation page on docs
+- Add to GitHub Project
+- **REQUIRED**: Include link to documentation in GitHub issue
+
+### 6. Epic-to-Story Breakdown
+- For each story in the epic:
+  - Create a sub-issue from the epic's task list
+  - Follow `crp-user-stories.mdc` for story creation
+  - Ensure parent-child relationship is maintained
+  - Add stories to the same GitHub Project
+
+## 🔄 Epic Management Process
+
+### Story Addition
+- When adding a new story to an epic:
+  - Update the epic's task list
+  - Ensure the story follows `crp-user-stories.mdc` guidelines
+  - Maintain the parent-child relationship
+  - Update timeline if necessary
+
+### Progress Tracking
+- Regularly update epic progress based on story completion
+- Document impediments and changes to scope
+- Update milestones and timelines as needed
+- Post status updates as comments on the epic
+- **REQUIRED**: Keep documentation page in sync with GitHub issue
+
+### Epic Completion
+- Verify all stories are completed
+- Validate against epic acceptance criteria
+- Document lessons learned
+- Close the epic with a summary comment
+- Update project status
+- **REQUIRED**: Update documentation page with completion status
+
+## 📊 Integration with GitHub Projects
+
+### ⚠️ CRITICAL: GitHub CLI Requirement
+- **ALWAYS use GitHub CLI (`gh`) for ALL GitHub operations**
+- **NEVER use browser or other methods to interact with GitHub**
+- Every interaction with epics, stories, and repositories MUST use the `gh` command
+- Ensure GitHub CLI is properly authenticated with `gh auth status`
+- Use `gh` for reading, creating, updating, and managing all GitHub content
+
+### Project Structure
+- Create an "Epics" view in the GitHub Project
+- Configure fields to include:
+  - Status
+  - Target completion
+  - Progress (% of stories completed)
+  - Owner
+  - Priority
+
+### Epic-to-Story Visualization
+- Use the parent-child relationship for grouped views
+- Configure the board to show epics as swimlanes
+- Create dashboards showing epic progress
+- Use labels consistently across epics and stories
+
+### Automation
+- Configure GitHub workflows to:
+  - Update epic progress when stories change status
+  - Send notifications for epic status changes
+  - Generate weekly epic status reports
+  - Highlight at-risk epics based on story progress
+
+## 📝 Documentation Requirements
+
+### Epic Documentation
+- **REQUIRED**: Each epic MUST have a dedicated documentation page in the docs repository
+- **Location**: `docs/project-management/epics/[epic-name].md`
+- **Naming**: Use kebab-case for the file name (e.g., `authentication-system-enhancement.md`)
+- Each epic page must be listed on the Epic overview page at `docs/project-management/epics.md`
+- Link technical design documents to the epic
+- Document architectural decisions related to the epic
+- Maintain a decision log for significant choices
+- **REQUIRED**: Include a public URL to docs in GitHub issue
+
+### Documentation Synchronization
+- **REQUIRED**: Both GitHub issue and documentation page must be kept in sync
+- When a new story is added to an epic, it must be:
+  - Added to the task list in the GitHub issue
+  - Added to the Stories section in the documentation page
+  - Linked bidirectionally (Epic → Story and Story → Epic)
+- Progress updates must be reflected in both the GitHub issue and the documentation page
+- The documentation page must include a progress tracking table that is updated regularly
+- **REQUIRED**: Include a link to the GitHub issue in the documentation page
+
+### GitHub Issue Format
+- **REQUIRED**: All Epics must be created as GitHub issues with the "epic" label
+- **Title Format**: "Epic: [Epic Title]"
+- **Content**: Must follow the Epic template structure
+- **Task List**: Must include a task list of all associated stories in Markdown format:
+  ```
+  - [ ] #123 Story Title
+  - [ ] #124 Another Story
+  ```
+- **Links**: Must include a link to the Epic documentation page in the docs repository
+- **Format**: Use the following URL format:
+  ```
+  **Documentation**: [Project Management - Epic: Title](mdc:https:/docs/project-management/epics/epic-name.md)
+  ```
+
+### Reporting
+- Generate regular status reports for epics
+- Track velocity and progress across epics
+- Document impediments and solutions
+- Capture lessons learned for future epics
+
+## 🔍 Implementation Guidelines
+
+### Repository Consideration
+- Consider which repositories will be affected by the epic
+- Determine if the epic spans multiple repositories
+- Create repository-specific milestones if necessary
+- Establish cross-repository coordination mechanism
+
+### Team Assignment
+- Assign epic ownership to a product owner or engineering manager
+- Distribute stories across appropriate teams
+- Establish communication channels for epic stakeholders
+- Schedule regular sync meetings for epic progress
+
+## 📋 File Management
+
+### File Storage Approach
+- **Template Location**: `.cursor/templates/epic_template.md`
+- **Temporary Files**: Store drafts in `.temp/epics/`
+- **Naming Convention**: `epic_[YYYY-MM-DD]_[short_title].md`
+- **REQUIRED**: Keep temporary files until explicit user confirmation of GitHub issue creation
+
+### GitHub CLI Commands
+```bash
+# Verify GitHub CLI authentication
+gh auth status
+
+# List available repositories
+gh repo list georgi-io --limit 20
+
+# Create epic issue
+gh issue create \
+  --repo "georgi-io/sales1-prototype" \
+  --title "Epic: ${EPIC_TITLE}" \
+  --body-file "${EPIC_FILE}" \
+  --label "epic" \
+  --json number \
+  --jq .number
+
+# Link to project
+gh issue edit "${ISSUE_NUMBER}" \
+  --repo "georgi-io/sales1-prototype" \
+  --add-project "Sales1 Board"
+
+# View epic details
+gh issue view "${ISSUE_NUMBER}" --repo "georgi-io/sales1-prototype"
+
+# Add story to epic task list (for an existing epic)
+gh issue comment "${EPIC_ISSUE_NUMBER}" --repo "georgi-io/sales1-prototype" \
+  --body "Added story #${STORY_ISSUE_NUMBER} to this epic's task list. Please update the task list in the epic description."
+```
+
+## 🌍 Language Guidelines
+- **CRITICAL: ALL content in the epic and temporary files MUST be written in ENGLISH**
+  - The epic itself, including descriptions, technical scope, and stories must be in English
+  - The temporary markdown file must be written in English
+  - The GitHub issue must be created in English
+  - The documentation page must be written in English
+- **Communication with the user can occur in their preferred language**
+  - Clarifying questions and discussions about the epic may be conducted in the user's preferred language
+  - Even when communicating in another language, always generate the epic document in English
+- Use clear, concise language
+- Maintain professional tone
+- Avoid technical jargon unless necessary
+- Explain concepts in business terms where appropriate
+
+## ⚠️ GitHub CLI (gh) Epic Management Guidelines
+
+### Installation & Setup
+- Ensure GitHub CLI is installed and authenticated
+- Authenticate with `gh auth login` if not already done
+- Verify access to relevant repositories with `gh auth status`
+- Use GitHub CLI for ALL GitHub operations
+
+### Epic Creation Commands
+```bash
+# Create a new epic
+gh issue create \
+  --repo "georgi-io/sales1-prototype" \
+  --title "Epic: ${EPIC_TITLE}" \
+  --body-file "${EPIC_FILE}" \
+  --label "epic" \
+  --json number \
+  --jq .number
+
+# Add the epic to the project
+gh issue edit "${ISSUE_NUMBER}" \
+  --repo "georgi-io/sales1-prototype" \
+  --add-project "Sales1 Board"
+```
+
+### Epic Management Commands
+```bash
+# Get epic details
+gh issue view "${EPIC_NUMBER}" --repo "georgi-io/sales1-prototype"
+
+# Export epic content for editing
+gh issue view "${EPIC_NUMBER}" --repo "georgi-io/sales1-prototype" --json body -q .body > epic_content.md
+
+# After editing, update the epic
+gh issue edit "${EPIC_NUMBER}" --repo "georgi-io/sales1-prototype" --body-file updated_epic.md
+
+# Add comment to epic
+gh issue comment "${EPIC_NUMBER}" --repo "georgi-io/sales1-prototype" --body-file epic_update.md
+```
+
+### Story Management Within Epics
+```bash
+# Create a new story within an epic
+gh issue create \
+  --repo "georgi-io/sales1-prototype" \
+  --title "${STORY_TITLE}" \
+  --body-file "${STORY_FILE}" \
+  --label "story" \
+  --json number \
+  --jq .number
+
+# Link a story to an epic (via comment)
+gh issue comment "${STORY_NUMBER}" --repo "georgi-io/sales1-prototype" \
+  --body "Part of Epic #${EPIC_NUMBER}"
+
+# Update epic task list when a story is completed
+# 1. Export epic content
+gh issue view "${EPIC_NUMBER}" --repo "georgi-io/sales1-prototype" --json body -q .body > epic_content.md
+
+# 2. Update task list (manually edit file to change "- [ ]" to "- [x]" for completed story)
+
+# 3. Update epic with modified content
+gh issue edit "${EPIC_NUMBER}" --repo "georgi-io/sales1-prototype" --body-file epic_content.md
+```
+
+### Progress Tracking Commands
+```bash
+# Add progress update comment
+gh issue comment "${EPIC_NUMBER}" --repo "georgi-io/sales1-prototype" \
+  --body "## Progress Update ($(date +%Y-%m-%d))\n\n- Stories completed: 5/12\n- Current focus: Authentication implementation\n- Blockers: None"
+
+# List all stories linked to an epic (requires advanced filtering)
+gh issue list --repo "georgi-io/sales1-prototype" --search "mentions:#${EPIC_NUMBER}"
+
+# View issue relationship (limited functionality, may require additional processing)
+gh issue view "${STORY_NUMBER}" --repo "georgi-io/sales1-prototype" --json body,comments -q '.body + "\n\n" + (.comments | map(.body) | join("\n"))'
+```
+
+### Repository Management
+```bash
+# List all repositories
+gh repo list georgi-io --limit 20
+
+# Clone a repository if needed
+gh repo clone georgi-io/sales1-prototype
+
+# View repository details
+gh repo view georgi-io/sales1-prototype
+```
+
+### ⚠️ CRITICAL: Browser Integration Avoidance
+- **NEVER** use `--web` flag unless explicitly instructed to open in browser
+- Use CLI commands for all operations instead of browser-based GitHub interface
+- Example of what NOT to do:
+  ```bash
+  # DO NOT USE unless specifically requested
+  gh issue create --web
+  gh issue view ${EPIC_NUMBER} --web
+  ```
+
+## 📄 Document Verification Checklist
+
+Before finalizing any epic, verify that:
+
+1. **Preparation Requirements**:
+   - [ ] Thorough codebase and documentation research has been completed
+   - [ ] 95% confidence level in requirements has been reached
+   - [ ] Target repository has been explicitly confirmed with the user
+
+2. **Language Requirement**:
+   - [ ] ALL content in the epic and temporary files is written in English
+   - [ ] Technical terms are used correctly and consistently
+   - [ ] If communicating with the user in another language, the epic itself is still in English
+
+3. **Structure Verification**:
+   - [ ] Business Vision section is complete and clear
+   - [ ] Technical Scope is thoroughly defined
+   - [ ] Stories are properly listed and formatted
+   - [ ] Timeline and milestones are realistic
+   - [ ] All sections of the template are properly filled out
+
+4. **Documentation Integration**:
+   - [ ] Documentation page has been created in the docs repository
+   - [ ] Documentation page follows the required template
+   - [ ] Links between GitHub issue and documentation are established
+   - [ ] Epic is listed on the Epic overview page
+
+5. **GitHub Requirements**:
+   - [ ] Issue title follows the "Epic: [Title]" format
+   - [ ] "epic" label is applied
+   - [ ] Issue is added to the project board
+   - [ ] Issue contains link to documentation page
+
+6. **Approval Confirmation**:
+   - [ ] User has explicitly approved the finalized epic
+   - [ ] User has confirmed the target repository
+   - [ ] User has approved the GitHub issue creation
+   - [ ] User has approved the documentation page creation

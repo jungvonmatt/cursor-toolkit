@@ -1,0 +1,168 @@
+---
+description: Rules for maintaining comprehensive documentation across the project, including inline comments, API docs, and system architecture documentation
+globs:
+alwaysApply: true
+---
+
+# Documentation Development Rules
+
+## Core Documentation Principles
+- Maintain quantum-detailed documentation
+- Keep documentation in sync with code
+- Provide clear context and examples
+- Use consistent formatting
+- Follow automated update protocols
+
+## Code Documentation
+- Write comprehensive docstrings
+- Include type hints and return types
+- Document parameters and exceptions
+- Provide usage examples
+- Explain complex algorithms
+
+## API Documentation
+- Document all endpoints
+- Define request/response schemas
+- Include authentication details
+- Provide usage examples
+- Document error responses
+
+## Project Documentation
+- Maintain clear README files
+- Document architecture decisions
+- Keep CHANGELOG up to date
+- Document dependencies
+- Include setup instructions
+
+## Documentation Updates
+- Update docs with code changes
+- Verify documentation accuracy
+- Maintain version consistency
+- Follow review process
+- Update examples regularly
+
+## Examples
+
+### Function Documentation
+```python
+from typing import List, Optional
+from datetime import datetime
+
+def process_user_data(
+    user_id: int,
+    data: List[dict],
+    timestamp: Optional[datetime] = None
+) -> dict:
+    """Process user data and return aggregated results.
+
+    This function takes raw user data and performs the following:
+    1. Validates input data format
+    2. Aggregates metrics
+    3. Applies business rules
+    4. Returns processed results
+
+    Args:
+        user_id: The unique identifier of the user
+        data: List of data points to process
+        timestamp: Optional processing timestamp
+
+    Returns:
+        dict: Processed data with the following structure:
+            {
+                'user_id': int,
+                'metrics': dict,
+                'processed_at': datetime
+            }
+
+    Raises:
+        ValueError: If data format is invalid
+        UserNotFoundError: If user_id doesn't exist
+
+    Example:
+        >>> data = [{'metric': 'views', 'value': 100}]
+        >>> process_user_data(123, data)
+        {'user_id': 123, 'metrics': {'views': 100}, 'processed_at': '2024-02-23T10:00:00Z'}
+    """
+    pass
+```
+
+### API Documentation
+```python
+from fastapi import APIRouter, Depends, HTTPException
+from typing import List
+
+router = APIRouter()
+
+@router.post("/users/", response_model=UserResponse)
+async def create_user(
+    user: UserCreate,
+    db: Database = Depends(get_db)
+) -> UserResponse:
+    """Create a new user in the system.
+
+    This endpoint handles user creation with the following steps:
+    1. Validates user input
+    2. Checks for existing users
+    3. Creates user record
+    4. Returns user data
+
+    Args:
+        user: User creation data
+        db: Database dependency
+
+    Returns:
+        UserResponse: Created user data
+
+    Raises:
+        HTTPException(400): If validation fails
+        HTTPException(409): If user already exists
+
+    Example:
+        ```http
+        POST /api/v1/users/
+        {
+            "username": "john_doe",
+            "email": "john@example.com"
+        }
+        ```
+    """
+    pass
+```
+
+### README Template
+```markdown
+# Project Name
+
+Brief description of the project.
+
+## Features
+
+- Key feature 1
+- Key feature 2
+- Key feature 3
+
+## Installation
+
+```bash
+poetry install
+```
+
+## Configuration
+
+1. Copy `.env.example` to `.env`
+2. Update environment variables
+
+## Usage
+
+```python
+from project import Client
+
+client = Client()
+result = client.process()
+```
+
+## Development
+
+1. Setup development environment
+2. Run tests
+3. Submit PR

@@ -1,0 +1,79 @@
+---
+description: Research and problem-solving methodologies for technical investigations and solution development
+globs:
+alwaysApply: true
+---
+# Research & Problem-Solving Standards
+
+## Core Research Principles
+- Gather information from multiple reliable sources
+- Validate approaches against current best practices
+- Document findings and decision rationale
+- Compare multiple solutions before implementing
+- Consider factors like maintainability, security, and performance
+
+## Web Research Protocol
+### Initial Research
+- Use Brave web search for current best practices
+- Analyze community discussions and experiences
+- Identify potential pitfalls and solutions
+- Validate approaches against real-world usage
+- Document search queries and key findings
+
+### Technical Resource Hierarchy
+1. **Stack Overflow Research**
+   - Search for similar problems
+   - Analyze accepted solutions and vote counts
+   - Review community comments and debates
+   - Check solution dates for relevance
+   - Verify against current best practices
+
+2. **Official Documentation**
+   - Read official guides and references
+   - Check API specifications
+   - Review implementation examples
+   - Understand underlying concepts
+   - Note any deprecation notices
+
+3. **GitHub Exploration**
+   - Search for similar implementations
+   - Review issue discussions
+   - Analyze popular solutions
+   - Check recent updates and fixes
+   - Evaluate community engagement
+
+4. **Package Registry Analysis**
+   - Search npm/PyPI for existing solutions
+   - Review package documentation
+   - Check maintenance status and update frequency
+   - Verify community adoption and popularity
+   - Assess security implications and dependencies
+
+## Problem-Solving Methodology
+### Analysis Phase
+- Break down problem into smaller components
+- Identify root causes rather than symptoms
+- Create minimal reproducible examples
+- Specify exact error messages and behaviors
+- Document system state and environment variables
+
+### Solution Design
+- Consider multiple possible approaches
+- Evaluate trade-offs for each solution
+- Prioritize simplicity and maintainability
+- Identify potential edge cases
+- Document considerations and decisions
+
+### Implementation
+- Start with minimal viable solution
+- Test each step incrementally
+- Document unexpected behaviors
+- Maintain compatibility with existing systems
+- Create appropriate error handling
+
+## Documentation Requirements
+- Link to all relevant research sources
+- Explain chosen approach with rationale
+- Note alternative solutions considered
+- Document key decisions and trade-offs
+- Track research findings in project documentation
