@@ -1,0 +1,17 @@
+{
+  "name": "@jungvonmatt/cursor-toolkit",
+  "version": "1.0.0",
+  "description": "Cursor Toolkit - Reusable Cursor rules, prompts, and workflows for AI-assisted development.",
+  "private": true,
+  "keywords": [
+    "ai",
+    "development",
+    "devkit",
+    "cursor",
+    "automation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jungvonmatt/cursor-toolkit.git"
+  }
+}
