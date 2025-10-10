@@ -96,14 +96,14 @@ alwaysApply: true
   - And other browser-specific operations
 
 ## 📋 Tool Usage Documentation
-- Document all significant tool calls in `.cursor/memory/tools.md`
+- Document all significant tool calls in project documentation
 - Format for tool usage documentation:
   ```
   [YYYY-MM-DD HH:MM] #tool-usage: Used [tool_name] for [purpose]
     - PARAMS: [key parameters used]
     - RESULT: [brief description of outcome]
     - CONTEXT: [brief description of situation requiring tool]
-    - LINKS: [cross-reference to related memory files]
+    - LINKS: [cross-reference to related documentation]
   ```
 
 ## 🔄 Tool Integration Workflow
@@ -120,4 +120,4 @@ alwaysApply: true
 3. **Documentation Phase**:
    - Record significant tool usages
    - Document outcomes and insights
-   - Cross-reference with other memory files
+   - Cross-reference with other documentation

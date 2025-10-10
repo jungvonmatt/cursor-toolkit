@@ -80,49 +80,51 @@ Before submitting any content, verify:
 ## Examples
 
 ### ✅ Correct Usage
-```python
-# Process user data and return aggregated results
-def process_user_data(user_id, data):
-    """
-    Calculate metrics based on user activity.
-
-    Args:
-        user_id: The user identifier
-        data: Activity data to process
-
-    Returns:
-        Dictionary with calculated metrics
-    """
-    result = {}
-    for item in data:
-        # Skip invalid entries
-        if not item.is_valid:
-            continue
-        # Calculate item metrics
-        result[item.name] = calculate_metrics(item)
-    return result
+```typescript
+/**
+ * Process user data and return aggregated results.
+ * 
+ * @param userId - The user identifier
+ * @param data - Activity data to process
+ * @returns Dictionary with calculated metrics
+ */
+async function processUserData(userId: number, data: ActivityData[]): Promise<MetricsResult> {
+  const result: MetricsResult = {};
+  
+  for (const item of data) {
+    // Skip invalid entries
+    if (!item.isValid) {
+      continue;
+    }
+    // Calculate item metrics
+    result[item.name] = calculateMetrics(item);
+  }
+  
+  return result;
+}
 ```
 
 ### ❌ Incorrect Usage
-```python
-# Verarbeite Benutzerdaten und gib aggregierte Ergebnisse zurück
-def verarbeite_benutzer_daten(benutzer_id, daten):
-    """
-    Berechne Metriken basierend auf Benutzeraktivität.
-
-    Args:
-        benutzer_id: Die Benutzerkennung
-        daten: Zu verarbeitende Aktivitätsdaten
-
-    Returns:
-        Dictionary mit berechneten Metriken
-    """
-    ergebnis = {}
-    for element in daten:
-        # Überspringe ungültige Einträge
-        if not element.is_valid:
-            continue
-        # Berechne Element-Metriken
-        ergebnis[element.name] = berechne_metriken(element)
-    return ergebnis
+```typescript
+/**
+ * Verarbeite Benutzerdaten und gib aggregierte Ergebnisse zurück.
+ * 
+ * @param benutzerId - Die Benutzerkennung
+ * @param daten - Zu verarbeitende Aktivitätsdaten
+ * @returns Dictionary mit berechneten Metriken
+ */
+async function verarbeiteBenutzerdaten(benutzerId: number, daten: AktivitätsDaten[]): Promise<MetrikenErgebnis> {
+  const ergebnis: MetrikenErgebnis = {};
+  
+  for (const element of daten) {
+    // Überspringe ungültige Einträge
+    if (!element.istGültig) {
+      continue;
+    }
+    // Berechne Element-Metriken
+    ergebnis[element.name] = berechneMetriken(element);
+  }
+  
+  return ergebnis;
+}
 ```

@@ -14,7 +14,7 @@ This guide covers the complete lifecycle from business story creation to impleme
 - **Structured Comments**: Technical analysis and updates via comments
 - **GitHub CLI Only**: All GitHub interactions via `gh` commands
 - **English Documentation**: All GitHub content in English regardless of communication language
-- Load `@.ai-devkit/working-with-git.md`
+- Load `@.cursor-toolkit/working-with-git.md`
 
 ## 🔄 Complete Workflow
 
@@ -268,7 +268,7 @@ Implement code following incremental approach with continuous documentation, cre
    - ALWAYS UPDATE THE IMPLEMENTATION CHECKLIST AFTER EACH MAJOR STEP!
 
 5. **Git Operations**
-   **Load Git workflow documentation when needed**: Reference `@.ai-devkit/workflows/working-with-git.md` to load Git workflows, GitHub CLI commands, and PR templates.
+   **Load Git workflow documentation when needed**: Reference `@.cursor-toolkit/workflows/working-with-git.md` to load Git workflows, GitHub CLI commands, and PR templates.
 
    **Validation**: Agent must confirm successful loading of Git documentation before performing any Git operations.
 
@@ -316,7 +316,7 @@ Implement code following incremental approach with continuous documentation, cre
 
 ## 🛠️ Git & GitHub CLI Operations
 
-**Load dependency**: `@.ai-devkit/working-with-git.md`
+**Load dependency**: `@.cursor-toolkit/working-with-git.md`
 
 For complete Git workflows, GitHub CLI commands, and Pull Request templates, reference the working-with-git.md document.
 
@@ -418,7 +418,7 @@ As a [user role], I want to [functionality], so that [benefit/value].
 
 ### Story-Specific Pull Request Template
 
-**Base PR Templates**: Load `@docs/ai-devkit-references.md#core-dependencies` to access standard PR templates from the Git workflow documentation.
+**Base PR Templates**: Load `@docs/cursor-toolkit-references.md#core-dependencies` to access standard PR templates from the Git workflow documentation.
 
 **Story-Specific Additions**:
 
@@ -463,11 +463,11 @@ This document consolidates all story workflow guidance. For specialized developm
 
 ### Core Dependencies
 
-For project-specific dependencies, reference `@docs/ai-devkit-references.md#core-dependencies` to load required workflow documentation as needed.
+For project-specific dependencies, reference `@docs/cursor-toolkit-references.md#core-dependencies` to load required workflow documentation as needed.
 
 ### Specialized Documentation
 
-For project-specific and specialized development documentation, reference `@docs/ai-devkit-references.md` with appropriate sections:
+For project-specific and specialized development documentation, reference `@docs/cursor-toolkit-references.md` with appropriate sections:
 
 - **Technical Architecture**: For system-specific documentation
 - **Implementation-Specific**: For technology stack guides
@@ -477,4 +477,4 @@ The references.md file provides a structured approach to organizing and selectiv
 
 ---
 
-**Usage**: Reference this document via `@.ai-devkit/working-with-stories.md` for core story workflow guidance. For project-specific context, selectively load `@docs/ai-devkit-references.md` sections as needed to avoid context bloat while maintaining workflow effectiveness.
+**Usage**: Reference this document via `@.cursor-toolkit/working-with-stories.md` for core story workflow guidance. For project-specific context, selectively load `@docs/cursor-toolkit-references.md` sections as needed to avoid context bloat while maintaining workflow effectiveness.

@@ -1,14 +1,8 @@
 {
-  "name": "ai-devkit",
+  "name": "cursor-toolkit",
   "version": "1.0.0",
-  "description": "AI Development Kit - A comprehensive toolkit for AI-powered development workflows",
+  "description": "Cursor Toolkit - Reusable Cursor rules, prompts, and workflows for AI-assisted development.",
   "private": true,
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "prepare": "husky"
-  },
   "keywords": [
     "ai",
     "development",
@@ -16,13 +10,8 @@
     "cursor",
     "automation"
   ],
-  "packageManager": "pnpm@10.12.1",
-  "devDependencies": {
-    "husky": "^9.1.7",
-    "lint-staged": "^16.1.2",
-    "prettier": "^3.6.2"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx,json,css,scss,md,yaml,yml}": "prettier --write"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jungvonmatt/cursor-toolkit.git"
   }
 }

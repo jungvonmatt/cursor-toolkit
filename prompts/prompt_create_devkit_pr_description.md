@@ -1,10 +1,9 @@
-You will now create a pull request description for the changes this feature branch makes to the `.ai-devkit` git submodule.
-The AI Dev Kit is a kit submodule that lives within this main project.
+You will now create a pull request description for the changes this feature branch makes to the repository.t.
 
-The developer has an open feature branch inside this Git submodule. To complete this task, you will first need to navigate into the ai-devkit.
+The developer has an open feature branch inside this Git submodule. To complete this task, you will first need to navigate into the cursor-toolkit.
 
-1. Fetch the default branch for the `ai-devkit repository (origin/main)
-2. Git diff the changes to the ai-devkit between this feature branch and the default branch
+1. Fetch the default branch for the `cursor-toolkit` repository (origin/main)
+2. Git diff the changes to the cursor-toolkit between this feature branch and the default branch
 3. Based on the diff, create a pull request description. In your pull request description, focus on the key modifications to logic, structure, and functionality. Write a clear pull request description that includes:
    - A summary of the purpose of the changes
    - A breakdown of major changes or refactors

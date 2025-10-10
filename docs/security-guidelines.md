@@ -1,4 +1,4 @@
-# Security Guidelines for Vision Guide Platform
+# Security Guidelines for GenAI projects
 
 ## Core Security Principles
 - **Defense in Depth**: Implement multiple layers of security controls

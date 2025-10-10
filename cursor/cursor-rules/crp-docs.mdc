@@ -44,89 +44,117 @@ alwaysApply: true
 ## Examples
 
 ### Function Documentation
-```python
-from typing import List, Optional
-from datetime import datetime
-
-def process_user_data(
-    user_id: int,
-    data: List[dict],
-    timestamp: Optional[datetime] = None
-) -> dict:
-    """Process user data and return aggregated results.
-
-    This function takes raw user data and performs the following:
-    1. Validates input data format
-    2. Aggregates metrics
-    3. Applies business rules
-    4. Returns processed results
-
-    Args:
-        user_id: The unique identifier of the user
-        data: List of data points to process
-        timestamp: Optional processing timestamp
-
-    Returns:
-        dict: Processed data with the following structure:
-            {
-                'user_id': int,
-                'metrics': dict,
-                'processed_at': datetime
-            }
-
-    Raises:
-        ValueError: If data format is invalid
-        UserNotFoundError: If user_id doesn't exist
-
-    Example:
-        >>> data = [{'metric': 'views', 'value': 100}]
-        >>> process_user_data(123, data)
-        {'user_id': 123, 'metrics': {'views': 100}, 'processed_at': '2024-02-23T10:00:00Z'}
-    """
-    pass
+```typescript
+/**
+ * Process user data and return aggregated results.
+ *
+ * This function takes raw user data and performs the following:
+ * 1. Validates input data format
+ * 2. Aggregates metrics
+ * 3. Applies business rules
+ * 4. Returns processed results
+ *
+ * @param userId - The unique identifier of the user
+ * @param data - Array of data points to process
+ * @param timestamp - Optional processing timestamp
+ * @returns Processed data with aggregated metrics
+ * @throws {ValidationError} If data format is invalid
+ * @throws {UserNotFoundError} If userId doesn't exist
+ *
+ * @example
+ * ```typescript
+ * const data = [{ metric: 'views', value: 100 }];
+ * const result = await processUserData(123, data);
+ * // Returns: { userId: 123, metrics: { views: 100 }, processedAt: '2024-02-23T10:00:00Z' }
+ * ```
+ */
+async function processUserData(
+  userId: number,
+  data: DataPoint[],
+  timestamp?: Date
+): Promise<ProcessedData> {
+  // Implementation
+}
 ```
 
 ### API Documentation
-```python
-from fastapi import APIRouter, Depends, HTTPException
-from typing import List
+```typescript
+import { Request, Response, NextFunction } from 'express';
 
-router = APIRouter()
+/**
+ * Create a new user in the system.
+ *
+ * This endpoint handles user creation with the following steps:
+ * 1. Validates user input
+ * 2. Checks for existing users
+ * 3. Creates user record
+ * 4. Returns user data
+ *
+ * @param req - Express request object containing user data
+ * @param res - Express response object
+ * @param next - Express next function
+ * @returns Created user data
+ * @throws {ValidationError} If validation fails (400)
+ * @throws {ConflictError} If user already exists (409)
+ *
+ * @example
+ * ```http
+ * POST /api/v1/users
+ * Content-Type: application/json
+ *
+ * {
+ *   "username": "john_doe",
+ *   "email": "john@example.com"
+ * }
+ * ```
+ */
+router.post('/users', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const userData = req.body;
+    // Implementation
+  } catch (error) {
+    next(error);
+  }
+});
+```
 
-@router.post("/users/", response_model=UserResponse)
-async def create_user(
-    user: UserCreate,
-    db: Database = Depends(get_db)
-) -> UserResponse:
-    """Create a new user in the system.
+### README Template
+```markdown
+# Project Name
 
-    This endpoint handles user creation with the following steps:
-    1. Validates user input
-    2. Checks for existing users
-    3. Creates user record
-    4. Returns user data
+Brief description of the project.
 
-    Args:
-        user: User creation data
-        db: Database dependency
+## Features
 
-    Returns:
-        UserResponse: Created user data
+- Key feature 1
+- Key feature 2
+- Key feature 3
 
-    Raises:
-        HTTPException(400): If validation fails
-        HTTPException(409): If user already exists
+## Installation
 
-    Example:
-        ```http
-        POST /api/v1/users/
-        {
-            "username": "john_doe",
-            "email": "john@example.com"
-        }
-        ```
-    """
-    pass
+```bash
+npm install
+```
+
+## Configuration
+
+1. Copy `.env.example` to `.env`
+2. Update environment variables
+
+## Usage
+
+```typescript
+import { Client } from './client';
+
+const client = new Client();
+const result = await client.process();
+```
+
+## Development
+
+1. Setup development environment
+2. Run tests
+3. Submit PR
 ```
 
 ### README Template

@@ -78,7 +78,7 @@ alwaysApply: true
 - Implement against real services and APIs always
 - Test with real data and actual service responses
 - Fix integration issues rather than bypassing with mocks
-- Document where real services are running: [local-development-ports.md](mdc:docs/development/local-development-ports.md)
+- Document where real services are running in project documentation
 - Ensure proper error handling for real-world conditions
 - Verify behavior with actual services before completion
 - Only consider mocks when explicitly instructed by user

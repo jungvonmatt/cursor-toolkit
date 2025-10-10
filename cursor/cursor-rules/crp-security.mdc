@@ -5,7 +5,7 @@
 
 ### Core Security Mandate
 **Every piece of generated code MUST be secure by default.** When generating code:
-1. **ALWAYS** check against the security guidelines in `.ai-devkit/docs/security-guidelines.md`
+1. **ALWAYS** follow security best practices for the specific framework/language
 2. **NEVER** generate insecure code patterns
 3. **ALWAYS** include security controls from the beginning
 4. **PROACTIVELY** suggest security improvements
@@ -13,94 +13,104 @@
 ## 🛡️ Automatic Security Enforcement
 
 ### 1. Authentication & Authorization (MANDATORY)
-```python
-# ❌ NEVER generate endpoints without authentication
-@router.get("/data")  # FORBIDDEN - No auth!
+```typescript
+// ❌ NEVER generate endpoints without authentication
+app.get('/data', (req, res) => {  // FORBIDDEN - No auth!
+  res.json(data);
+});
 
-# ✅ ALWAYS include authentication
-from fastapi import Depends
-from auth import get_current_user
+// ✅ ALWAYS include authentication middleware
+import { authenticate } from './middleware/auth';
 
-@router.get("/data")
-async def get_data(current_user: User = Depends(get_current_user)):
-    # Endpoint is now protected
-    pass
+app.get('/data', authenticate, (req: AuthRequest, res: Response) => {
+  // Endpoint is now protected
+  const user = req.user;
+  res.json(data);
+});
 ```
 
 ### 2. Input Validation (MANDATORY)
-```python
-# ❌ NEVER accept raw input
-@router.post("/create")
-async def create(data: dict):  # FORBIDDEN - No validation!
-    pass
+```typescript
+// ❌ NEVER accept raw input
+app.post('/create', (req, res) => {  // FORBIDDEN - No validation!
+  const data = req.body;
+  // ...
+});
 
-# ✅ ALWAYS use Pydantic models with validation
-from pydantic import BaseModel, validator, constr, EmailStr
+// ✅ ALWAYS validate with schema validation (Zod, Joi, etc.)
+import { z } from 'zod';
 
-class CreateRequest(BaseModel):
-    name: constr(min_length=1, max_length=100, regex="^[a-zA-Z0-9\\s-]+$")
-    email: EmailStr
-    
-    @validator('name')
-    def validate_safe_name(cls, v):
-        # Check for XSS patterns
-        if any(pattern in v.lower() for pattern in ['<script', 'javascript:', 'onerror']):
-            raise ValueError('Name contains unsafe characters')
-        return v
+const CreateSchema = z.object({
+  name: z.string()
+    .min(1)
+    .max(100)
+    .regex(/^[a-zA-Z0-9\s-]+$/, 'Name contains invalid characters'),
+  email: z.string().email()
+});
 
-@router.post("/create")
-async def create(data: CreateRequest):  # Now validated!
-    pass
+app.post('/create', (req, res, next) => {
+  try {
+    const validatedData = CreateSchema.parse(req.body);
+    // Now safe to use validatedData
+  } catch (error) {
+    next(error);
+  }
+});
 ```
 
 ### 3. Rate Limiting (MANDATORY for sensitive endpoints)
-```python
-# ✅ ALWAYS add rate limiting to:
-# - Login endpoints
-# - Password reset
-# - Registration
-# - Any endpoint that sends emails/SMS
+```typescript
+// ✅ ALWAYS add rate limiting to:
+// - Login endpoints
+// - Password reset
+// - Registration
+// - Any endpoint that sends emails/SMS
 
-from slowapi import Limiter
-from slowapi.util import get_remote_address
+import rateLimit from 'express-rate-limit';
 
-limiter = Limiter(key_func=get_remote_address)
+const loginLimiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minute
+  max: 5, // 5 requests per minute
+  message: 'Too many login attempts, please try again later'
+});
 
-@router.post("/login")
-@limiter.limit("5 per minute")  # Prevent brute force
-async def login(request: Request, credentials: LoginCredentials):
-    pass
+app.post('/login', loginLimiter, async (req, res) => {
+  // Login logic
+});
 ```
 
 ### 4. SQL Injection Prevention (MANDATORY)
-```python
-# ❌ NEVER use string formatting for queries
-query = f"SELECT * FROM users WHERE id = {user_id}"  # FORBIDDEN!
+```typescript
+// ❌ NEVER use string concatenation for queries
+const query = `SELECT * FROM users WHERE id = ${userId}`;  // FORBIDDEN!
 
-# ✅ ALWAYS use parameterized queries or ORM
-# SQLAlchemy ORM
-users = db.query(User).filter(User.id == user_id).all()
+// ✅ ALWAYS use parameterized queries or ORM
+// Using Prisma ORM
+const users = await prisma.user.findMany({
+  where: { id: userId }
+});
 
-# Raw SQL with parameters
-query = text("SELECT * FROM users WHERE id = :user_id")
-result = db.execute(query, {"user_id": user_id})
+// Using parameterized query
+const query = 'SELECT * FROM users WHERE id = $1';
+const result = await db.query(query, [userId]);
 ```
 
 ### 5. Security Headers (MANDATORY)
-```python
-# ✅ ALWAYS include security middleware
-@app.middleware("http")
-async def add_security_headers(request: Request, call_next):
-    response = await call_next(request)
-    
-    # Essential security headers
-    response.headers["X-Content-Type-Options"] = "nosniff"
-    response.headers["X-Frame-Options"] = "DENY"
-    response.headers["X-XSS-Protection"] = "1; mode=block"
-    response.headers["Strict-Transport-Security"] = "max-age=31536000"
-    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
-    
-    return response
+```typescript
+// ✅ ALWAYS include security middleware
+import helmet from 'helmet';
+
+app.use(helmet()); // Adds multiple security headers
+
+// Or manually:
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Strict-Transport-Security', 'max-age=31536000');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  next();
+});
 ```
 
 ## 🔒 Frontend Security Rules
@@ -113,7 +123,7 @@ async def add_security_headers(request: Request, call_next):
 // ✅ ALWAYS escape or sanitize
 import DOMPurify from 'dompurify';
 
-// Option 1: Let React escape (preferred)
+// Option 1: Let React/framework escape (preferred)
 <div>{userContent}</div>
 
 // Option 2: Sanitize if HTML needed
@@ -127,7 +137,7 @@ const sanitized = DOMPurify.sanitize(htmlContent);
 localStorage.setItem('jwt_token', token);  // FORBIDDEN!
 
 // ✅ Use secure alternatives
-// Option 1: httpOnly cookies (set by backend)
+// Option 1: httpOnly cookies (set by backend) - BEST
 // Option 2: sessionStorage for temporary data
 // Option 3: Encrypted storage for necessary client-side storage
 ```
@@ -135,21 +145,95 @@ localStorage.setItem('jwt_token', token);  // FORBIDDEN!
 ### 3. API Security (MANDATORY)
 ```typescript
 // ✅ ALWAYS include security in API calls
+import axios from 'axios';
+
 const apiClient = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
-    timeout: 10000,
-    withCredentials: true,  // Include cookies
+  baseURL: process.env.REACT_APP_API_URL,
+  timeout: 10000,
+  withCredentials: true,  // Include cookies
 });
 
 // Add auth headers
 apiClient.interceptors.request.use((config) => {
-    const token = getSecureToken();  // From secure storage
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
+  const token = getSecureToken();  // From secure storage
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 });
 ```
+
+## 🚨 Security Code Review Checklist
+
+When generating or reviewing code, ALWAYS verify:
+
+### Backend Checklist
+- [ ] **Authentication**: All endpoints protected (except public ones)
+- [ ] **Authorization**: Role-based access control implemented
+- [ ] **Validation**: All inputs validated with schema validation
+- [ ] **SQL Safety**: Only parameterized queries or ORMs used
+- [ ] **Rate Limiting**: Applied to sensitive endpoints
+- [ ] **Error Handling**: No sensitive info in error messages
+- [ ] **Logging**: Security events logged without PII
+- [ ] **Dependencies**: Latest secure versions used
+
+### Frontend Checklist
+- [ ] **XSS Protection**: No raw HTML rendering
+- [ ] **Storage**: No sensitive data in localStorage
+- [ ] **HTTPS**: All API calls use HTTPS
+- [ ] **Validation**: Client-side validation before submission
+- [ ] **Error Handling**: No sensitive info exposed
+- [ ] **Dependencies**: Security vulnerabilities checked
+
+## 🔥 Immediate Security Fixes
+
+If you detect ANY of these patterns, FIX IMMEDIATELY:
+
+```typescript
+// Fix missing authentication
+if (!hasAuthentication(endpoint)) {
+  addAuthenticationMiddleware(endpoint);
+}
+
+// Fix missing validation
+if (acceptsRawInput(endpoint)) {
+  addSchemaValidation();
+}
+
+// Fix SQL injection risk
+if (usesStringConcatenationInQuery()) {
+  convertToParameterizedQuery();
+}
+
+// Fix missing rate limiting
+if (isSensitiveEndpoint() && !hasRateLimiting()) {
+  addRateLimiting();
+}
+```
+
+## 📋 Security Integration Workflow
+
+1. **Before generating code**: Check security requirements
+2. **During code generation**: Apply security patterns
+3. **After code generation**: Verify security checklist
+4. **Always suggest**: Additional security improvements
+
+## 🔗 References
+
+Always consult these resources:
+- **OWASP Top 10**: Latest security risks
+- **Framework Security**: Express/Next.js/React security documentation
+- **Language Security**: TypeScript/JavaScript security best practices
+
+## ⚡ Quick Security Decisions
+
+When in doubt:
+- **Authentication**: YES, always required
+- **Validation**: YES, always required  
+- **Rate Limiting**: YES for sensitive operations
+- **Error Details**: NO, never expose internals
+- **Raw SQL**: NO, always use ORM/parameters
+- **localStorage for secrets**: NO, never
 
 ## 🚨 Security Code Review Checklist
 
