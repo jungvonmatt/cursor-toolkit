@@ -12,7 +12,8 @@ This DevKit includes a minimal MCP configuration focused on universal utility:
 - **`eslint`** - JavaScript/TypeScript code quality checks (for JS/TS projects)
 - **`context7`** - Access to a knowledge graph (requires separate account)
 - **`Figma`** - Interact with Figma design files (requires Figma token)
-
+- **`Chrome DevTools`** - Control and inspect a live Chrome browser
+  
 ### Why Minimal?
 
 **Most development tasks are better handled via shell commands:**
@@ -31,8 +32,8 @@ MCP servers add value when they provide **structured data access** that's hard t
    ```
 
 2. Edit `cursor/mcp.json` and configure credentials:
-   - **GitHub**: Add your Personal Access Token (Settings → Developer settings → Tokens)
-   - **Time**: Adjust timezone if needed (default: `Europe/Berlin`)
+   - **context7**: Add your Personal Access Token from https://context7.com/dashboard
+   - **Chrome DevTools**: You may need to add `"--executablePath=path/to/your/chrome/installation"` 
 
 3. Restart Cursor to load the MCP servers
 
