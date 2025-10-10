@@ -15,14 +15,10 @@ cp -r ${HOME}/cursor-toolkit/cursor ./.cursor
 ```
 
 **What's included:**
-- Cursor Rules: Development standards and AI guidance (`cursor/rules/general-use/`)
-- Prompts: Story creation, commit messages, PR descriptions, TDD workflows (`cursor/prompts/general-use/`)
-- MCP Servers: Optional tools for extended AI capabilities (`cursor/mcp.json`)
-- Workflows: Agent documentation on using Git and story-based development (`/workflows/`)
-
-**For customization:**
-- Add your own rules to `cursor/rules/project-specific/`
-- Add your own prompts to `cursor/prompts/project-specific/`
+- Cursor Rules: Development standards and AI guidance 
+- Prompts: Story creation, commit messages, PR descriptions
+- MCP Servers: Optional tools for extended AI capabilities
+- Workflows: Agent documentation on using Git and story-based development
 
 ## Contributing
 
