@@ -1,5 +1,5 @@
 {
-  "name": "cursor-toolkit",
+  "name": "@jungvonmatt/cursor-toolkit",
   "version": "1.0.0",
   "description": "Cursor Toolkit - Reusable Cursor rules, prompts, and workflows for AI-assisted development.",
   "private": true,
