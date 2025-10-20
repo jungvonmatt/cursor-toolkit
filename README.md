@@ -10,7 +10,7 @@ Reusable Cursor rules, prompts, and workflows for AI-assisted development as use
 ```bash
 # Clone into your project or a central location
 git clone https://github.com/jungvonmatt/cursor-toolkit.git
- # Copy full dir or cherry pick into your target repo
+# Copy full dir or cherry pick into your target repo
 cp -r ${PATH_TO_TOOLKIT}/* .cursor
 ```
 
