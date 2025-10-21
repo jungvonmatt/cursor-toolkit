@@ -6,73 +6,68 @@
 
 ## Current Configuration
 
-This DevKit includes a minimal MCP configuration focused on universal utility:
+This DevKit includes a minimal MCP configuration:
 
-- **`Sequential Thinking`** - Helps AI break down complex problems into structured steps
-- **`eslint`** - JavaScript/TypeScript code quality checks (for JS/TS projects)
-- **`context7`** - Access to a knowledge graph (requires separate account)
-- **`Figma`** - Interact with Figma design files (requires Figma token)
+- **`Sequential Thinking`** - Breaks down complex problems into structured steps
+- **`eslint`** - JavaScript/TypeScript code quality checks
+- **`context7`** - Knowledge graph access (optional API key for higher limits)
+- **`Figma`** - Interact with Figma design files (requires local Figma plugin)
+- **`chrome-devtools`** - Browser automation and debugging
 
 ### Why Minimal?
 
-**Most development tasks are better handled via shell commands:**
-- Git operations → Use `git` and `gh` CLI (see `/workflows/working-with-git.md`)
-- File operations → Built into Cursor
-- Testing/linting → Run via terminal (e.g., `npx eslint .`)
-
-MCP servers add value when they provide **structured data access** that's hard to achieve via CLI alone.
-
+Most development tasks work better via shell commands (git, file operations, testing). MCP servers add value for **structured data access** that's hard to achieve via CLI alone.
 
 ## Setup Instructions
 
 1. Copy the MCP configuration:
-   ```bash
-   cp cursor/mcp/mcp.json .cursor/mcp.json
-   ```
 
-2. Edit `cursor/mcp.json` and configure credentials:
-   - **GitHub**: Add your Personal Access Token (Settings → Developer settings → Tokens)
-   - **Time**: Adjust timezone if needed (default: `Europe/Berlin`)
+```bash
+cp mcp/mcp.json .cursor/mcp.json
+```
 
-3. Restart Cursor to load the MCP servers
+2. (Optional) Edit `.cursor/mcp.json` to add credentials:
 
-### Configuration File Location
+- **context7**: Add API key for higher rate limits and private repos
+- **Figma**: Requires local Figma plugin running on port 3845
 
-**Important**: MCP files must be at `.cursor/mcp.json` in your project root. Cursor will not recognize MCP configurations in other locations or with different filenames.
+3. Restart Cursor to load the servers
+
+**Note**: MCP files must be at `.cursor/mcp.json` in your project root.
 
 ## Customizing Your Setup
 
-You can modify `.cursor/mcp.json` to fit your needs:
+Modify `.cursor/mcp.json` to fit your needs:
 
-- **Remove servers you don't need** - Delete entries from the JSON
-- **Add project-specific servers** - See [Official MCP Registry](https://github.com/modelcontextprotocol/servers)
-- **Adjust configurations** - Modify args, env variables, or commands
+- Remove unused servers
+- Add servers from the [Official MCP Registry](https://github.com/modelcontextprotocol/servers)
+- Adjust args, env variables, or commands
 
-**Note**: After changes, restart Cursor to apply the new configuration.
+Restart Cursor after changes.
 
-## Common MCP Servers to Consider
-
-If you need additional functionality, here are well-maintained options:
+## Additional Servers to Consider
 
 **Language-Specific:**
+
 - `@modelcontextprotocol/server-filesystem` - Enhanced file operations
 - `@modelcontextprotocol/server-prettier` - Code formatting
 
 **Infrastructure:**
+
 - `@modelcontextprotocol/server-postgres` - Database queries
 - `@modelcontextprotocol/server-kubernetes` - K8s management
 
 **Integrations:**
+
 - `@modelcontextprotocol/server-jira` - Issue tracking
 - `@modelcontextprotocol/server-slack` - Team communication
 
-Browse the [official registry](https://github.com/modelcontextprotocol/servers) for more options.
+Browse the [official registry](https://github.com/modelcontextprotocol/servers) for more.
 
 ## Security Notes
 
-- API keys are stored in `.cursor/mcp.json` (local file, not committed to git)
-- Add `.cursor/mcp.json` to `.gitignore` if it contains sensitive tokens
-- Use environment-specific tokens, not production credentials
+- Add `.cursor/mcp.json` to `.gitignore` (contains sensitive tokens)
+- Use development tokens, not production credentials
 
 ## Additional Resources
 
