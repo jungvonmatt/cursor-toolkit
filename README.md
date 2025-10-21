@@ -4,7 +4,6 @@ Reusable Cursor rules, prompts, and workflows for AI-assisted development as use
 
 > **Tip**: View this README with `⌘+Shift+V` in Cursor/VSC for better formatting.
 
-
 ## Quick Start
 
 ```bash
@@ -15,7 +14,8 @@ cp -r ${PATH_TO_TOOLKIT}/* .cursor
 ```
 
 **What's included:**
-- Cursor Rules: Development standards and AI guidance 
+
+- Cursor Rules: Development standards and AI guidance
 - Prompts: Story creation, commit messages, PR descriptions
 - MCP Servers: Optional tools for extended AI capabilities
 - Workflows: Agent documentation on using Git and story-based development
@@ -23,3 +23,7 @@ cp -r ${PATH_TO_TOOLKIT}/* .cursor
 ## Contributing
 
 Contributions welcome! See [Contributing Guide](docs/CONTRIBUTING.md) for guidelines.
+
+## Prior Art
+
+Some of the recipes and prompts in this toolkit are inspired by or adapted from [Context7](https://context7.com), [Playbooks](https://playbooks.com) and [Cursor.Directory](https://cursor.directory).

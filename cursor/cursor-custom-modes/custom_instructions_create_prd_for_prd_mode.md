@@ -19,12 +19,14 @@ Follow these steps to create the PRD:
 4. Organize your PRD into the sections as shown in the prd_outline below
 
 5. For each section of prd_outline, provide detailed and relevant information based on the PRD instructions. Ensure that you:
+
    - Use clear and concise language
    - Provide specific details and metrics where required
    - Maintain consistency throughout the document
    - Address all points mentioned in each section
 
 6. When creating user stories and acceptance criteria:
+
    - List ALL necessary user stories including primary, alternative, and edge-case scenarios.
    - Assign a unique requirement ID (e.g., US-001) to each user story for direct traceability
    - Include at least one user story specifically for secure access or authentication if the application requires user identification or access restrictions
@@ -33,6 +35,7 @@ Follow these steps to create the PRD:
    - Review the user_story example below for guidance on how to structure your user stories
 
 7. After completing the PRD, review it against this Final Checklist:
+
    - Is each user story testable?
    - Are acceptance criteria clear and specific?
    - Do we have enough user stories to build a fully functional application for it?
@@ -95,10 +98,10 @@ Follow these steps to create the PRD:
 
 ### 3.3 Role-based access
 
-      - Briefly describe each user role (e.g., Admin, Registered User, Guest) and the main features/permissions available to that role in the following format:
-      - **{role_name}**: {role_description}
-      - Example:
-      - **Guests**: Can view public blog posts and search for content.
+- Briefly describe each user role (e.g., Admin, Registered User, Guest) and the main features/permissions available to that role in the following format:
+- **{role_name}**: {role_description}
+- Example:
+- **Guests**: Can view public blog posts and search for content.
 
 ## 4. Functional requirements
 

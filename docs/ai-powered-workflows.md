@@ -18,15 +18,16 @@ Test-Driven Development (TDD) with AI assistance helps ensure your features are 
    Use the [TDD Red Green Refactor prompt](../prompts/prompt_tdd-red-green-refactor.md) to guide the AI through the process
 
    _Drag the prompt into the Cursor chat._
-   <img src="../assets/drag-prompt-example.gif" alt="Drag Drop Prompt Example" width="80%">
 
-2. **Review and refine the tests** ⚠️ **Most Important Step**
+2. **Review and refine the tests**
+
    - Carefully check all generated tests
    - Ensure tests accurately reflect your feature requirements
    - The AI will use these tests as the source of truth for implementation
    - Make any necessary adjustments before proceeding
 
 3. **Let AI implement based on tests**
+
    - Once tests are correct, the AI will code to make them pass
    - The implementation will match exactly what your tests expect
 
