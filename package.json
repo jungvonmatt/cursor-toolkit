@@ -1,7 +1,8 @@
 {
   "name": "@jungvonmatt/cursor-toolkit",
-  "version": "0.4.5",
-  "description": "Cursor Toolkit - Reusable Cursor rules, prompts, and workflows for AI-assisted development.",
+  "homepage": "https://jvm.tech",
+  "version": "0.4.6",
+  "description": "Reusable Cursor rules, prompts, and workflows for AI-assisted development.",
   "private": true,
   "keywords": [
     "ai",
