@@ -24,6 +24,6 @@ cp -r ${PATH_TO_TOOLKIT}/* .cursor
 
 Contributions welcome! See [Contributing Guide](docs/CONTRIBUTING.md) for guidelines.
 
-## Prior Art
+## Credits
 
-Some of the recipes and prompts in this toolkit are inspired by or adapted from [Context7](https://context7.com), [Playbooks](https://playbooks.com) and [Cursor.Directory](https://cursor.directory).
+Some of the recipes and prompts in this toolkit are inspired by or adapted from [Context7](https://context7.com) and [Playbooks](https://playbooks.com).
